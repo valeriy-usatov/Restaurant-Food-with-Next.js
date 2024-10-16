@@ -370,7 +370,7 @@ type Product = {
       id: 1,
       slug: "pastas",
       title: "Italian Pastas",
-      desc: "Savor the taste of perfection with our exquisite Italian handmade pasta menu.",
+      desc: "Savor the taste of perfection with our exquisite Italian handmade pasta menu. Savor the taste of perfection with our exquisite Italian handmade pasta menu. Savor the taste of perfection with our exquisite Italian handmade pasta menu",
       img: "/temporary/m1.png",
       color: "white",
     },
