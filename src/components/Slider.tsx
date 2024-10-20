@@ -24,12 +24,12 @@ const data = [
 const Slider = () => {
   const [current, setCurrent] = useState(1);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrent((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-  //   }, 4000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="h-[calc(100vh-96px)] md:h-[calc(100vh-144px)] flex flex-col lg:flex-row relative ">

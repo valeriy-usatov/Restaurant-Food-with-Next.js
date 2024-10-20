@@ -1,7 +1,5 @@
-import CartIcon from "@/components/CartIcon"
 import { menu } from "@/data"
 import Link from "next/link"
-
 
 const Menupage = () => {
   return (
