@@ -8,26 +8,26 @@ type Props = {
   options?: { title: string; additionalPrice: number }[];
 };
 
-const Price = ({ price, options }: Props) => {
+const Price = ({ price, options}:Props) => {
   const [total, setTotal] = useState(price);
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
 
- 
+  // quantity * (options ? price + options[selected].additionalPrice : price)
   
   useEffect(() => {
     setTotal(
-      quantity * (options ? price + options[selected].additionalPrice : price)
+      options ? quantity * price + options[selected].additionalPrice : price * quantity
     );
   }, [quantity, selected, options, price]);
 
 
   return (
     <div className="flex flex-col justify-center gap-4">
-      <h2 className="text-2xl font-bold">${total.toFixed(2)}</h2>
+      <h2 className="text-2xl font-bold">${total}</h2>
       {/* OPTION CONTAINER */}
       <div className="flex gap-4">
-        {options?.map((option, index) => (
+        {options?.length && options?.map((option, index) => (
           <button
             key={option.title}
             onClick={() => setSelected(index)}
