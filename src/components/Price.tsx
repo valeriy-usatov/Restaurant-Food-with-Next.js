@@ -13,8 +13,6 @@ const Price = ({ price, options}:Props) => {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
 
-  // quantity * (options ? price + options[selected].additionalPrice : price)
-  
   useEffect(() => {
     setTotal(
       options ? quantity * price + options[selected].additionalPrice : price * quantity
@@ -31,7 +29,7 @@ const Price = ({ price, options}:Props) => {
           <button
             key={option.title}
             onClick={() => setSelected(index)}
-            className={`min-w-[6rem] p-2 ring-1 ring-red-400 rounded-md ${selected===index ? ('bg-red-500 text-white'): ""}`}
+            className={`min-w-[6rem] p-2 ring-1 ring-red-400 rounded-md ${selected===index ? ('bg-red-500 text-white'): "" }`}
           >
             {option.title}
           </button>
@@ -52,7 +50,7 @@ const Price = ({ price, options}:Props) => {
         </div>
         {/* CART BUTTON */}
         <button className="bg-red-500 text-white p-2 ring-1 ring-red-500 uppercase">
-          Add to Cart
+          Add to Cart!
         </button>
       </div>
     </div>
