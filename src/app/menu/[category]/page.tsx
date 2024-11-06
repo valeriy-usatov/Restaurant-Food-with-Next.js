@@ -1,8 +1,9 @@
-import {ProductTypes } from '@/types/types';
+import { ProductTypes } from '@/types/types';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const getData = async (category:string) => {
+
+const getData = async (category: string) => {
   const res = await fetch(`http://localhost:3000/api/products?cat=${category}`, {
     cache: 'no-store',
   });
@@ -12,14 +13,12 @@ const getData = async (category:string) => {
   return res.json();
 };
 
-
 type Props = {
-  params: {category:string}
-}
+  params: { category: string };
+};
 
-const Category = async ({params}:Props ) => {
-  console.log("params" , params.category);
-  const products:ProductTypes[] = await getData(params.category)
+const Category = async ({ params }: Props) => {
+  const products: ProductTypes[] = await getData(params.category);
 
   return (
     <div className="flex flex-wrap text-red-500">

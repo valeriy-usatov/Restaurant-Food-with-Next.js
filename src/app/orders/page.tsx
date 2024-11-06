@@ -45,18 +45,27 @@ const Orders = () => {
 
   function handleUpdate(e:React.FormEvent<HTMLFormElement>, id:string) {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+
+    try {
+      const form = e.target as HTMLFormElement;
     const input = form.elements[0] as HTMLInputElement
     const status = input.value;
     mutation.mutate({ id, status });
     console.log(e.target);
     toast.success("The order status has been changed!")
+    
+  } catch (error) {
+      console.error("Failed to execute querySelector:", error);
+  }
+    
   }
   
 
-  if (isLoading || status === 'loading') return 'Loading...';
+  if (isLoading || status === 'loading') return <p>Loading...</p>;
 
-  if (error) return 'An error has occurred: ' + error.message;
+  if(status==="unauthenticated" || !session?.user.isAdmin) {
+    return
+}
 
   return (
     <div className="p-4 lg:px20 xl:px-40">

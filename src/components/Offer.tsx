@@ -1,6 +1,7 @@
-import Image from "next/image";
-import React from "react";
-import CountDown from "./CountDown";
+import Image from 'next/image';
+import React from 'react';
+import CountDown from './CountDown';
+import Link from 'next/link';
 
 const Offer = () => {
   return (
@@ -9,11 +10,13 @@ const Offer = () => {
       <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 p-6">
         <h2 className="text-white text-5xl font-bold xl:text-6xl">Delicious Burger & French Fry</h2>
         <p className="text-white xl:text-xl">
-          Progressively simplify effective e-toilers and process-centric methods
-          of empowerment. Quickly pontificate parallel.
+          Progressively simplify effective e-toilers and process-centric methods of empowerment.
+          Quickly pontificate parallel.
         </p>
-        <CountDown/>
-        <button className="bg-red-500 text-white rounded-md py-3 px-6">Order Now</button>
+        <CountDown />
+        <Link href="/menu" className="bg-red-500 text-white rounded-md py-3 px-6">
+          Order Now
+        </Link>
       </div>
       {/* IMAGE CONTAINER */}
       <div className="flex-1 w-full relative md:h-full">
@@ -24,20 +27,3 @@ const Offer = () => {
 };
 
 export default Offer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

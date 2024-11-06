@@ -8,6 +8,7 @@ import QueryProvider from '@/components/QueryProvider';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
+import AddItems from '@/components/AddItems';
 
 
 const geistSans = localFont({
@@ -37,6 +38,7 @@ export default function RootLayout({
         <QueryProvider>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Notification />
+          <AddItems/>
           <Navbar />
           {children}
           <Footer />
