@@ -1,10 +1,8 @@
 "use client"
 import { useSession } from 'next-auth/react';
 import Image from "next/image"
-import { useCartStore } from '@/utils/store';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { log } from 'console';
 
 const DeleteButton = ({id}:{id:string}) => {
    const {data:session, status} =useSession()

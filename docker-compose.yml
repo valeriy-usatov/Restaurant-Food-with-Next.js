@@ -1,0 +1,42 @@
+services:
+  # Контейнер приложения
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000' # это для нашего приложения
+      - '5555:5555' # это для Prisma Studio
+    environment:
+      #   # Подключение к базе данных
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydb?schema=public
+      - AUTH_TRUST_HOST=localhost
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL_INTERNAL=http://app:3000
+    depends_on:
+      - db
+    command: >
+      sh -c "until nc -z db 5432; do
+              echo 'Waiting for the database...';
+              sleep 5;
+            done;
+            sleep 20;  # Дополнительное время на инициализацию базы данных
+            npx prisma migrate deploy;  # Выполнение миграций
+            npm run start"
+
+  # Контейнер базы данных
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Создаем volume для хранения данных Postgres.Не забудьте добавить тома для служб базы данных и хранилища файлов. В противном случае данные будут потеряны при остановке контейнеров.
+volumes:
+  postgres_data:

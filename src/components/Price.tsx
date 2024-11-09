@@ -5,12 +5,6 @@ import { useCartStore } from '@/utils/store';
 import { ProductTypes } from '@/types/types';
 import { toast } from 'react-toastify';
 
-type Props = {
-  price: number;
-  id: number;
-  options?: { title: string; additionalPrice: number }[];
-};
-
 const Price = ({ product }: { product: ProductTypes }) => {
   const { addToCart } = useCartStore();
 

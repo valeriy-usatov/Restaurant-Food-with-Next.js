@@ -1,3 +1,12 @@
+export type User = {
+  name?: string;
+  email?: string;
+  image?: string;
+  isAdmin: boolean; 
+};
+
+
+
 export type MenuTypes = {
   id: number;
   slug: string;
@@ -23,7 +32,7 @@ export type OrderType = {
   products: CartItemType[];
   status: string;
   createdAt: Date;
-  intent_id?: String;
+  intent_id?: string;
 };
 
 export type CartItemType = {

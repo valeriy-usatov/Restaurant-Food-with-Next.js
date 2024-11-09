@@ -3,14 +3,14 @@ import { prisma } from '@/utils/connect';
 import { getAuthSession } from '../../../../auth';
 
 // FETCH ALL ORDERS
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   const session = await getAuthSession();
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session?.user.email,
-    },
-  });
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     email: session?.user.email,
+  //   },
+  // });
 
   if (session) {
     try {

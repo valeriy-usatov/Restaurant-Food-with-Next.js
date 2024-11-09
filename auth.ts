@@ -1,49 +1,54 @@
+// import NextAuth from 'next-auth';
 import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
-import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/utils/connect';
+import { User } from '@/types/types';
 
-declare module "next-auth" {
+type JWT = {
+  isAdmin: boolean;
+  email?: string;
+  name?: string;
+};
+
+declare module 'next-auth' {
   interface Session {
-    user:User & {
-      isAdmin: Boolean
-    }
+    user: User;
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth' {
   interface JWT {
-    isAdmin: Boolean
+    isAdmin: boolean;
   }
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: process.env.NODE_ENV !== 'production', // Разрешить localhost только в режиме разработки
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy:"jwt"
+    strategy: 'jwt',
   },
   providers: [GitHub, Google],
-  callbacks:{
-    async session({token, session}){
-      if(token){
-        session.user.isAdmin = token.isAdmin
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.isAdmin = (token as JWT).isAdmin;
       }
-      return session
+      return session;
     },
-    async jwt({token}){
+    async jwt({ token }) {
       const userInDb = await prisma.user.findUnique({
-        where:{
-          email:token.email!
-        }
-      })
+        where: {
+          email: token.email!,
+        },
+      });
 
-      token.isAdmin = userInDb?.isAdmin!;
+      token.isAdmin = userInDb?.isAdmin ?? false; // устанавливаем значение по умолчанию
       return token;
-    }
-
-  }
+    },
+  },
 });
 
-
-export const getAuthSession = () =>auth() /* получаем сесию на стороне сервера */
+export const getAuthSession = () => auth(); /* получаем сесию на стороне сервера */
